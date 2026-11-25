@@ -1,0 +1,424 @@
+let
+    Source = Excel.CurrentWorkbook(){[Name="Table1"]}[Content],
+
+    #"Changed Type" = Table.TransformColumnTypes(Source,{
+        {"Transaction_ID", type text}, 
+        {"Transaction_DateTime", type datetime}, 
+        {"Card_Token", type text}, 
+        {"Customer_ID", type text}, 
+        {"Account_ID", type text}, 
+        {"Transaction_Amount", type number}, 
+        {"Currency", type text}, 
+        {"Merchant_ID", type text}, 
+        {"Merchant_Category", type text}, 
+        {"Merchant_Country", type text}, 
+        {"Merchant_City", type text}, 
+        {"Transaction_Channel", type text}, 
+        {"Card_Present_Flag", type text}, 
+        {"Card_Entry_Mode", type text}, 
+        {"Terminal_ID", type text}, 
+        {"Device_ID", type text}, 
+        {"IP_Country", type text}, 
+        {"Billing_Country", type text}, 
+        {"Domestic_International_Flag", type text}, 
+        {"Transaction_Status", type text}, 
+        {"Authorization_Response_Code", Int64.Type}, 
+        {"Customer_Avg_Amount_30D", type number}, 
+        {"Transaction_Count_1H", Int64.Type}, 
+        {"Transaction_Count_24H", Int64.Type}, 
+        {"Time_Since_Last_Transaction_Min", Int64.Type}, 
+        {"Distance_From_Previous_Transaction_KM", type number}, 
+        {"High_Risk_Merchant_Flag", type text}, 
+        {"Alert_Flag", type text}, 
+        {"Confirmed_Fraud_Flag", type text}, 
+        {"Chargeback_Status", type text}, 
+        {"Investigation_Outcome", type text}
+    }),
+
+    #"Removed Duplicates According Transaction_ID" = Table.Distinct(#"Changed Type", {"Transaction_ID"}),
+
+    // Original (correct) DateTime values for the 16 corrupted Transaction_IDs
+    FixMap = [
+        TXN101587 = #datetime(2026, 5, 29, 23, 47, 0),
+        TXN102393 = #datetime(2026, 6, 14, 14, 18, 0),
+        TXN103020 = #datetime(2026, 6, 25, 16, 30, 0),
+        TXN103965 = #datetime(2026, 7, 13, 12, 46, 0),
+        TXN104257 = #datetime(2026, 7, 18, 19, 34, 0),
+        TXN104695 = #datetime(2026, 7, 27, 10, 15, 0),
+        TXN105004 = #datetime(2026, 8, 1, 9, 30, 0),
+        TXN105355 = #datetime(2026, 8, 7, 20, 32, 0),
+        TXN105903 = #datetime(2026, 8, 17, 11, 9, 0),
+        TXN106095 = #datetime(2026, 8, 21, 15, 15, 0),
+        TXN106192 = #datetime(2026, 8, 23, 11, 54, 0),
+        TXN107169 = #datetime(2026, 9, 10, 10, 32, 0),
+        TXN107665 = #datetime(2026, 9, 19, 8, 37, 0),
+        TXN108426 = #datetime(2026, 10, 3, 13, 20, 0),
+        TXN108700 = #datetime(2026, 10, 8, 13, 2, 0),
+        TXN108745 = #datetime(2026, 10, 9, 6, 34, 0)
+    ],
+
+    // New column: original value if Transaction_ID is in FixMap, else keep existing value
+    #"Added New DateTime Column" = Table.AddColumn(
+        #"Removed Duplicates According Transaction_ID",
+        "Transaction_DateTime_New",
+        each let fix = Record.FieldOrDefault(FixMap, [Transaction_ID], null)
+             in if fix <> null then fix else [Transaction_DateTime],
+        type datetime
+    ),
+
+    // Remove old column
+    #"Removed Old DateTime Column" = Table.RemoveColumns(#"Added New DateTime Column", {"Transaction_DateTime"}),
+
+    // Rename new column to the original name
+    #"Renamed New Column" = Table.RenameColumns(#"Removed Old DateTime Column", {{"Transaction_DateTime_New", "Transaction_DateTime"}}),
+
+    // Restore original column order
+    #"Reordered Columns" = Table.ReorderColumns(#"Renamed New Column", Table.ColumnNames(Source)),
+
+    // Fix Transaction_Channel inconsistencies (spaces, case, dots, typos)
+    #"Cleaned Transaction_Channel" = Table.TransformColumns(
+        #"Reordered Columns",
+        {{"Transaction_Channel",
+            each
+                if _ = null then null
+                else
+                    let
+                        key = Text.Upper(Text.Remove(Text.Trim(Text.Clean(_)), {".", " "}))
+                    in
+                        if key = "POS" then "POS"
+                        else if key = "ATM" then "ATM"
+                        else if key = "ONLINE" or key = "ONLIN" then "Online"
+                        else Text.Trim(_),
+            type text}}
+    ),
+
+    // Country name standardization function (add more mappings here if needed)
+    CountryFix = (c as nullable text) as nullable text =>
+        if c = null then null
+        else
+            let
+                key = Text.Upper(Text.Trim(Text.Clean(c)))
+            in
+                if key = "" then null
+                else if key = "IN" or key = "IND" or key = "INDIA" then "India"
+                else if key = "SG" or key = "SINGAPORE" then "Singapore"
+                else Text.Trim(c),
+
+    // Fix Billing_Country, IP_Country, Merchant_Country
+    #"Cleaned Country Columns" = Table.TransformColumns(
+        #"Cleaned Transaction_Channel",
+        {
+            {"Billing_Country", CountryFix, type text},
+            {"IP_Country", CountryFix, type text},
+            {"Merchant_Country", CountryFix, type text}
+        }
+    ),
+
+    // Fix Transaction_Status labels (approved/APPROVED/Approve/Success -> Approved, declined -> Declined)
+    StatusFix = (s as nullable text) as nullable text =>
+        if s = null then null
+        else
+            let
+                key = Text.Upper(Text.Trim(Text.Clean(s)))
+            in
+                if key = "" then null
+                else if key = "APPROVED" or key = "APPROVE" or key = "SUCCESS" then "Approved"
+                else if key = "DECLINED" or key = "DECLINE" then "Declined"
+                else Text.Trim(s),
+
+    #"Cleaned Transaction_Status" = Table.TransformColumns(
+        #"Cleaned Country Columns",
+        {{"Transaction_Status", StatusFix, type text}}
+    ),
+
+    // Correct Card_Present_Flag values (Transaction_ID -> original value)
+    CardFlagMap = [
+        TXN100145 = "No",
+        TXN101425 = "No",
+        TXN102159 = "No",
+        TXN102889 = "Yes",
+        TXN103018 = "No",
+        TXN104308 = "Yes",
+        TXN104419 = "No",
+        TXN105140 = "No",
+        TXN105649 = "Yes",
+        TXN105910 = "Yes",
+        TXN106823 = "No",
+        TXN107795 = "Yes",
+        TXN108452 = "Yes",
+        TXN109097 = "Yes",
+        TXN109435 = "Yes"
+    ],
+
+    #"Added New Card_Present_Flag" = Table.AddColumn(
+        #"Cleaned Transaction_Status",
+        "Card_Present_Flag_New",
+        each let fix = Record.FieldOrDefault(CardFlagMap, [Transaction_ID], null)
+             in if fix <> null then fix else [Card_Present_Flag],
+        type text
+    ),
+
+    #"Removed Old Card_Present_Flag" = Table.RemoveColumns(#"Added New Card_Present_Flag", {"Card_Present_Flag"}),
+
+    #"Renamed Card_Present_Flag" = Table.RenameColumns(#"Removed Old Card_Present_Flag", {{"Card_Present_Flag_New", "Card_Present_Flag"}}),
+
+    #"Final Reordered Columns" = Table.ReorderColumns(#"Renamed Card_Present_Flag", Table.ColumnNames(Source)),
+
+    // ===== Incorrect Data Type fixes (original values by Transaction_ID) =====
+    // TXN100329 already has a correct value (40000), so it needs no entry.
+
+    AmountMap = [
+        TXN100803 = 8177.42,
+        TXN101637 = 430.79,
+        TXN101773 = 578.25,
+        TXN102264 = 51989.13,
+        TXN102906 = 3651.96,
+        TXN103797 = 834.3,
+        TXN105631 = 4897.4,
+        TXN105817 = 282.03,
+        TXN106389 = 735.5,
+        TXN106408 = 12120.05,
+        TXN108698 = 10694.07,
+        TXN108765 = 2849.09,
+        TXN109486 = 369.65,
+        TXN109689 = 31987.48
+    ],
+
+    DistanceMap = [
+        TXN100580 = 1.3,
+        TXN100951 = 6,
+        TXN101137 = 2.7,
+        TXN102068 = 3.9,
+        TXN105748 = 11874.7,
+        TXN105809 = 0.5,
+        TXN106940 = 3.2,
+        TXN108744 = 2.9,
+        TXN108918 = 0.9,
+        TXN109005 = 4.6,
+        TXN109040 = 1.3,
+        TXN109956 = 0.8
+    ],
+
+    Count24Map = [
+        TXN101503 = 5,
+        TXN102972 = 0,
+        TXN103206 = 0,
+        TXN103847 = 0,
+        TXN108399 = 0,
+        TXN108610 = 0,
+        TXN109528 = 1,
+        TXN109930 = 0
+    ],
+
+    // Generic helper: new column from map (else keep old value), remove old, rename, keep position
+    ApplyFix = (tbl as table, colName as text, fixMap as record, colType as type) as table =>
+        let
+            Added = Table.AddColumn(
+                tbl,
+                colName & "_New",
+                each let fix = Record.FieldOrDefault(fixMap, [Transaction_ID], null)
+                     in if fix <> null then fix else Record.Field(_, colName),
+                colType
+            ),
+            Removed = Table.RemoveColumns(Added, {colName}),
+            Renamed = Table.RenameColumns(Removed, {{colName & "_New", colName}}),
+            Reordered = Table.ReorderColumns(Renamed, Table.ColumnNames(tbl))
+        in
+            Reordered,
+
+    #"Fixed Transaction_Amount" = ApplyFix(#"Final Reordered Columns", "Transaction_Amount", AmountMap, type number),
+
+    #"Fixed Distance" = ApplyFix(#"Fixed Transaction_Amount", "Distance_From_Previous_Transaction_KM", DistanceMap, type number),
+
+    #"Fixed Transaction_Count_24H" = ApplyFix(#"Fixed Distance", "Transaction_Count_24H", Count24Map, Int64.Type),
+
+    // ===== Invalid Transaction_Amount fixes (Negative / Zero / Outlier > 200,000 / Non-numeric) =====
+    InvalidAmountMap = [
+        TXN100205 = 458.05,
+        TXN100310 = 471.54,
+        TXN100718 = 7947.96,
+        TXN100861 = 2291.96,
+        TXN101658 = 498.4,
+        TXN101778 = 100,
+        TXN102241 = 2582.72,
+        TXN103457 = 23255.52,
+        TXN103923 = 8180.48,
+        TXN104204 = 1000.49,
+        TXN104208 = 589.9,
+        TXN104867 = 4500,
+        TXN105265 = 7018.62,
+        TXN105435 = 853.6,
+        TXN105567 = 1282.26,
+        TXN105600 = 2085.75,
+        TXN105907 = 38861.22,
+        TXN106005 = 3808.12,
+        TXN107080 = 2746.01,
+        TXN108360 = 4000,
+        TXN108436 = 1812.3,
+        TXN108900 = 4171.91,
+        TXN109184 = 799.17,
+        TXN109663 = 4207.25,
+        TXN109914 = 386.26
+    ],
+
+    #"Fixed Invalid Transaction_Amount" = ApplyFix(#"Fixed Transaction_Count_24H", "Transaction_Amount", InvalidAmountMap, type number),
+
+    // ===== Missing Value fills (original values by Transaction_ID) =====
+    // Only the Transaction_IDs listed in the issue log are filled here.
+
+    CustAvgMap = [
+        TXN101012 = 1065.88,
+        TXN102729 = 2846.73,
+        TXN103604 = 5607.03,
+        TXN103994 = 6121.95,
+        TXN104108 = 1964.16,
+        TXN105220 = 3061.37,
+        TXN105608 = 730.19,
+        TXN106499 = 4461.7,
+        TXN106713 = 2263.87,
+        TXN106943 = 2475.43,
+        TXN107286 = 2432.94,
+        TXN108134 = 4877.56,
+        TXN108269 = 2887.28,
+        TXN109484 = 6537.21,
+        TXN109946 = 4418
+    ],
+
+    DeviceMap = [
+        TXN100304 = "DEVB8F0DA23",
+        TXN101186 = "DEV6F86621F",
+        TXN101284 = "DEV09C38C80",
+        TXN103019 = "DEV6F3FE259",
+        TXN103503 = "DEV6972DBAF",
+        TXN103757 = "DEV563DF136",
+        TXN104054 = "DEV840AE297",
+        TXN104262 = "DEVC7268491",
+        TXN104548 = "DEV7BF38D43",
+        TXN105492 = "DEV9433C9EE",
+        TXN105652 = "DEV1AAA802C",
+        TXN106261 = "DEV3916BDB0",
+        TXN106784 = "DEV1C1D5094",
+        TXN107353 = "DEVBBF0DFBA",
+        TXN108444 = "DEV3AF4CFC0",
+        TXN108669 = "DEV79B9DBD3",
+        TXN108877 = "DEV2E7F507B",
+        TXN109155 = "DEVFA62EC99",
+        TXN109455 = "DEV895018FE",
+        TXN109905 = "DEV4C0DDB9E"
+    ],
+
+    IPCountryMap = [
+        TXN100356 = "India",
+        TXN100869 = "India",
+        TXN101468 = "India",
+        TXN104015 = "India",
+        TXN104770 = "India",
+        TXN105920 = "India",
+        TXN106154 = "India",
+        TXN106330 = "India",
+        TXN106956 = "India",
+        TXN107545 = "India",
+        TXN108476 = "India",
+        TXN108597 = "India",
+        TXN108634 = "India",
+        TXN108757 = "India",
+        TXN108804 = "India"
+    ],
+
+    MerchantCityMap = [
+        TXN100175 = "Bengaluru",
+        TXN100472 = "Indore",
+        TXN101182 = "Kochi",
+        TXN102700 = "Mumbai",
+        TXN103550 = "Hyderabad",
+        TXN103567 = "Delhi",
+        TXN104592 = "Mumbai",
+        TXN105402 = "Delhi",
+        TXN105734 = "Mumbai",
+        TXN106078 = "Delhi",
+        TXN107148 = "Mumbai",
+        TXN107435 = "Gurugram",
+        TXN107796 = "Kolkata",
+        TXN107914 = "Hyderabad",
+        TXN108889 = "Mumbai"
+    ],
+
+    MerchantIDMap = [
+        TXN100413 = "MER508213",
+        TXN100479 = "MER700356",
+        TXN100660 = "MER641105",
+        TXN102247 = "MER599021",
+        TXN102543 = "MER077320",
+        TXN102758 = "MER755825",
+        TXN103931 = "MER642102",
+        TXN104316 = "MER093605",
+        TXN106230 = "MER033136",
+        TXN107626 = "MER442731",
+        TXN108336 = "MER868506",
+        TXN108498 = "MER379630",
+        TXN109226 = "MER942049",
+        TXN109250 = "MER857313",
+        TXN109854 = "MER884985"
+    ],
+
+    TerminalMap = [
+        TXN100663 = "TRM765281",
+        TXN101623 = "TRM890838",
+        TXN101923 = "TRM540001",
+        TXN102702 = "TRM213347",
+        TXN103784 = "TRM938007",
+        TXN104037 = "TRM365295",
+        TXN104311 = "TRM431796",
+        TXN105052 = "TRM348054",
+        TXN105138 = "TRM072810",
+        TXN105680 = "TRM012155",
+        TXN105685 = "TRM904149",
+        TXN105963 = "TRM469715",
+        TXN106681 = "TRM635885",
+        TXN108516 = "TRM463262",
+        TXN109200 = "TRM123537"
+    ],
+
+    #"Filled Customer_Avg_Amount_30D" = ApplyFix(#"Fixed Invalid Transaction_Amount", "Customer_Avg_Amount_30D", CustAvgMap, type number),
+
+    #"Filled Device_ID" = ApplyFix(#"Filled Customer_Avg_Amount_30D", "Device_ID", DeviceMap, type text),
+
+    #"Filled IP_Country" = ApplyFix(#"Filled Device_ID", "IP_Country", IPCountryMap, type text),
+
+    #"Filled Merchant_City" = ApplyFix(#"Filled IP_Country", "Merchant_City", MerchantCityMap, type text),
+
+    #"Filled Merchant_ID" = ApplyFix(#"Filled Merchant_City", "Merchant_ID", MerchantIDMap, type text),
+
+    #"Filled Terminal_ID" = ApplyFix(#"Filled Merchant_ID", "Terminal_ID", TerminalMap, type text),
+
+    // ===== Status Conflicts With Response Code fixes (original Transaction_Status by Transaction_ID) =====
+    StatusConflictMap = [
+        TXN100272 = "Approved",
+        TXN100712 = "Declined",
+        TXN101333 = "Approved",
+        TXN102533 = "Declined",
+        TXN102949 = "Approved",
+        TXN103862 = "Approved",
+        TXN104193 = "Declined",
+        TXN104374 = "Declined"
+    ],
+
+    #"Fixed Status Conflicts" = ApplyFix(#"Filled Terminal_ID", "Transaction_Status", StatusConflictMap, type text),
+
+    // ===== Fill remaining nulls in IP_Country, Device_ID, Terminal_ID with "No" =====
+    // (change the text below if you want something else, e.g. "NA")
+    NullFillText = "No",
+
+    NullToText = (v as nullable text) as nullable text =>
+        if v = null or Text.Trim(v) = "" then NullFillText else v,
+
+    #"Filled Remaining Nulls With No" = Table.TransformColumns(
+        #"Fixed Status Conflicts",
+        {
+            {"IP_Country", NullToText, type text},
+            {"Device_ID", NullToText, type text},
+            {"Terminal_ID", NullToText, type text}
+        }
+    )
+in
+    #"Filled Remaining Nulls With No"

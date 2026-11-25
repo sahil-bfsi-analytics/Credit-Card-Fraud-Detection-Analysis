@@ -1,0 +1,25 @@
+Credit Card Fraud Patterns
+
+Transaction Behaviour
+
+Fraudulent Transaction Amounts
+
+Customer Spending Behaviour
+
+Suspicious Transaction Activity
+
+Merchant Risk
+
+Domestic vs International Transactions
+
+Transaction Channel Risk
+
+Fraud Alerts
+
+False Positives
+
+Chargebacks
+
+Fraud Investigation Outcomes
+
+Financial Loss Prevention

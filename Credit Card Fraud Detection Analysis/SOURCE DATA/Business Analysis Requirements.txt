@@ -1,0 +1,73 @@
+Transaction Analysis
+
+Total Transactions
+
+Total Transaction Amount
+
+Average Transaction Amount
+
+Approved Transactions
+
+Declined Transactions
+
+Transaction Approval Rate
+
+Fraud Analysis
+
+Total Confirmed Fraud Transactions
+
+Fraud Rate
+
+Total Fraudulent Transaction Amount
+
+Average Fraudulent Transaction Amount
+
+Fraud Loss
+
+Fraud Rate by Transaction Channel
+
+Fraud Rate by Merchant Category
+
+Fraud Rate by Domestic vs International Transactions
+
+Fraud by Transaction Amount Group
+
+Fraud by Time of Day
+
+Fraud by Customer Spending Behaviour
+
+Fraud Monitoring Analysis
+
+Total Fraud Alerts
+
+Confirmed Fraud Alerts
+
+False Positive Count
+
+False Positive Rate
+
+Alert-to-Fraud Conversion Rate
+
+Fraud Detection Rate
+
+Chargeback Analysis
+
+Total Chargebacks Filed
+
+Chargeback Amount
+
+Chargeback Success Rate
+
+Chargeback Status Analysis
+
+Customer Behaviour Analysis
+
+Customers with Multiple Suspicious Transactions
+
+Unusual Transaction Frequency
+
+High-Value Transaction Analysis
+
+Geographic Transaction Behaviour
+
+Customer Spending Behaviour vs Fraud

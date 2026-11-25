@@ -1,0 +1,321 @@
+﻿Issue_ID,Transaction_ID,Excel_Row_Number,Column_Affected,Issue_Type,Original_Value,Corrupted_Value
+DQ0001,TXN100001,26,(entire row),Duplicate Record,Original at Excel row 2,Exact copy at Excel row 26
+DQ0002,TXN100051,67,(entire row),Duplicate Record,Original at Excel row 53,Exact copy at Excel row 67
+DQ0003,TXN100091,94,Merchant_Country,Inconsistent Country Name,India,IN
+DQ0004,TXN100068,123,(entire row),Duplicate Record,Original at Excel row 71,Exact copy at Excel row 123
+DQ0005,TXN100145,149,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0006,TXN100158,162,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0007,TXN100164,168,Billing_Country,Inconsistent Country Name,India,india
+DQ0008,TXN100175,179,Merchant_City,Missing Value,Bengaluru,<BLANK>
+DQ0009,TXN100205,209,Transaction_Amount,Invalid Amount (Negative),458.05,-458.05
+DQ0010,TXN100209,213,Transaction_Status,Inconsistent Status Label,Approved,APPROVED
+DQ0011,TXN100272,276,Transaction_Status,Status Conflicts With Response Code,Approved,Declined
+DQ0012,TXN100282,286,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0013,TXN100304,308,Device_ID,Missing Value,DEVB8F0DA23,<BLANK>
+DQ0014,TXN100310,314,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",471.54,9999999.00
+DQ0015,TXN100329,333,Transaction_Amount,Incorrect Data Type,40000.00,"₹40,000.00"
+DQ0016,TXN100356,360,IP_Country,Missing Value,India,<BLANK>
+DQ0017,TXN100359,363,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,P.O.S
+DQ0018,TXN100413,417,Merchant_ID,Missing Value,MER508213,<BLANK>
+DQ0019,TXN100442,446,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0020,TXN100465,469,Transaction_Channel,Inconsistent Channel Spelling/Case,ATM,Atm
+DQ0021,TXN100472,476,Merchant_City,Missing Value,Indore,<BLANK>
+DQ0022,TXN100479,483,Merchant_ID,Missing Value,MER700356,<BLANK>
+DQ0023,TXN100481,485,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-05-09 11:15:27,09/05/2026 11:15
+DQ0024,TXN100517,521,Merchant_Country,Inconsistent Country Name,India,india
+DQ0025,TXN100580,584,Distance_From_Previous_Transaction_KM,Incorrect Data Type,1.3,1.3 km
+DQ0026,TXN100657,661,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,Onlin
+DQ0027,TXN100660,664,Merchant_ID,Missing Value,MER641105,<BLANK>
+DQ0028,TXN100663,667,Terminal_ID,Missing Value,TRM765281,<BLANK>
+DQ0029,TXN100712,716,Transaction_Status,Status Conflicts With Response Code,Declined,Approved
+DQ0030,TXN100718,722,Transaction_Amount,Invalid Amount (Negative),7947.96,-7947.96
+DQ0031,TXN100747,751,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0032,TXN100803,807,Transaction_Amount,Incorrect Data Type,8177.42,Rs. 8177.42
+DQ0033,TXN100861,865,Transaction_Amount,Invalid Amount (Zero),2291.96,0.00
+DQ0034,TXN100869,873,IP_Country,Missing Value,India,<BLANK>
+DQ0035,TXN100951,955,Distance_From_Previous_Transaction_KM,Incorrect Data Type,6.0,6.0 km
+DQ0036,TXN101012,1016,Customer_Avg_Amount_30D,Missing Value,1065.88,<BLANK>
+DQ0037,TXN101062,1104,(entire row),Duplicate Record,Original at Excel row 1066,Exact copy at Excel row 1104
+DQ0038,TXN101137,1142,Distance_From_Previous_Transaction_KM,Incorrect Data Type,2.7,2.7 km
+DQ0039,TXN101178,1183,Billing_Country,Inconsistent Country Name,India,INDIA
+DQ0040,TXN101180,1185,Transaction_Status,Inconsistent Status Label,Approved,Approve
+DQ0041,TXN101182,1187,Merchant_City,Missing Value,Kochi,<BLANK>
+DQ0042,TXN101186,1191,Device_ID,Missing Value,DEV6F86621F,<BLANK>
+DQ0043,TXN101193,1198,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0044,TXN101284,1289,Device_ID,Missing Value,DEV09C38C80,<BLANK>
+DQ0045,TXN101258,1296,(entire row),Duplicate Record,Original at Excel row 1263,Exact copy at Excel row 1296
+DQ0046,TXN101317,1323,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,Online 
+DQ0047,TXN101333,1339,Transaction_Status,Status Conflicts With Response Code,Approved,Declined
+DQ0048,TXN101397,1403,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,pos
+DQ0049,TXN101420,1426,Billing_Country,Inconsistent Country Name,India,INDIA
+DQ0050,TXN101425,1431,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0051,TXN101465,1471,IP_Country,Inconsistent Country Name,India,india
+DQ0052,TXN101468,1474,IP_Country,Missing Value,India,<BLANK>
+DQ0053,TXN101503,1509,Transaction_Count_24H,Incorrect Data Type,5,five
+DQ0054,TXN101587,1593,Transaction_DateTime,Missing Value,2026-05-29 23:47:46,<BLANK>
+DQ0055,TXN101623,1629,Terminal_ID,Missing Value,TRM890838,<BLANK>
+DQ0056,TXN101637,1643,Transaction_Amount,Incorrect Data Type,430.79,₹430.79
+DQ0057,TXN101658,1664,Transaction_Amount,Invalid Amount (Non-numeric),498.40,N/A
+DQ0058,TXN101773,1779,Transaction_Amount,Incorrect Data Type,578.25,578.25 INR
+DQ0059,TXN101778,1784,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",100.00,5000000.00
+DQ0060,TXN101816,1822,Transaction_Status,Inconsistent Status Label,Approved,APPROVED
+DQ0061,TXN101825,1878,(entire row),Duplicate Record,Original at Excel row 1831,Exact copy at Excel row 1878
+DQ0062,TXN101923,1930,Terminal_ID,Missing Value,TRM540001,<BLANK>
+DQ0063,TXN102011,2069,(entire row),Duplicate Record,Original at Excel row 2018,Exact copy at Excel row 2069
+DQ0064,TXN102068,2076,Distance_From_Previous_Transaction_KM,Incorrect Data Type,3.9,3.9 km
+DQ0065,TXN102130,2138,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,P.O.S
+DQ0066,TXN102149,2157,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,pos
+DQ0067,TXN102151,2159,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,Pos
+DQ0068,TXN102159,2167,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0069,TXN102221,2234,(entire row),Duplicate Record,Original at Excel row 2229,Exact copy at Excel row 2234
+DQ0070,TXN102241,2250,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",2582.72,1250000.00
+DQ0071,TXN102247,2256,Merchant_ID,Missing Value,MER599021,<BLANK>
+DQ0072,TXN102203,2259,(entire row),Duplicate Record,Original at Excel row 2211,Exact copy at Excel row 2259
+DQ0073,TXN102264,2274,Transaction_Amount,Incorrect Data Type,51989.13,"₹51,989.13"
+DQ0074,TXN102265,2291,(entire row),Duplicate Record,Original at Excel row 2275,Exact copy at Excel row 2291
+DQ0075,TXN102334,2345,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0076,TXN102343,2354,Transaction_Status,Inconsistent Status Label,Approved,Success
+DQ0077,TXN102393,2404,Transaction_DateTime,Date Format Inconsistency (time missing),2026-06-14 14:18:53,14-Jun-2026
+DQ0078,TXN102533,2544,Transaction_Status,Status Conflicts With Response Code,Declined,Approved
+DQ0079,TXN102543,2554,Merchant_ID,Missing Value,MER077320,<BLANK>
+DQ0080,TXN102553,2584,(entire row),Duplicate Record,Original at Excel row 2564,Exact copy at Excel row 2584
+DQ0081,TXN102641,2653,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,P.O.S
+DQ0082,TXN102644,2656,Transaction_Channel,Inconsistent Channel Spelling/Case,ATM,atm
+DQ0083,TXN102700,2712,Merchant_City,Missing Value,Mumbai,<BLANK>
+DQ0084,TXN102702,2714,Terminal_ID,Missing Value,TRM213347,<BLANK>
+DQ0085,TXN102729,2741,Customer_Avg_Amount_30D,Missing Value,2846.73,<BLANK>
+DQ0086,TXN102758,2770,Merchant_ID,Missing Value,MER755825,<BLANK>
+DQ0087,TXN102813,2825,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,P.O.S
+DQ0088,TXN102866,2878,Merchant_Country,Inconsistent Country Name,India,india
+DQ0089,TXN102889,2901,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0090,TXN102906,2918,Transaction_Amount,Incorrect Data Type,3651.96,3651.96 INR
+DQ0091,TXN102949,2961,Transaction_Status,Status Conflicts With Response Code,Approved,Declined
+DQ0092,TXN102972,2984,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0093,TXN103018,3030,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0094,TXN103019,3031,Device_ID,Missing Value,DEV6F3FE259,<BLANK>
+DQ0095,TXN103020,3032,Transaction_DateTime,Missing Value,2026-06-25 16:30:59,<BLANK>
+DQ0096,TXN103130,3142,Billing_Country,Inconsistent Country Name,India,india
+DQ0097,TXN103137,3149,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,Online 
+DQ0098,TXN103206,3218,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0099,TXN103294,3338,(entire row),Duplicate Record,Original at Excel row 3306,Exact copy at Excel row 3338
+DQ0100,TXN103354,3367,Transaction_Status,Inconsistent Status Label,Approved,Success
+DQ0101,TXN103440,3453,Transaction_Status,Inconsistent Status Label,Approved,Success
+DQ0102,TXN103457,3470,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",23255.52,9999999.00
+DQ0103,TXN103502,3515,Billing_Country,Inconsistent Country Name,India,INDIA
+DQ0104,TXN103503,3516,Device_ID,Missing Value,DEV6972DBAF,<BLANK>
+DQ0105,TXN103550,3563,Merchant_City,Missing Value,Hyderabad,<BLANK>
+DQ0106,TXN103561,3574,Merchant_Country,Inconsistent Country Name,India,Ind
+DQ0107,TXN103567,3580,Merchant_City,Missing Value,Delhi,<BLANK>
+DQ0108,TXN103544,3598,(entire row),Duplicate Record,Original at Excel row 3557,Exact copy at Excel row 3598
+DQ0109,TXN103593,3607,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-07-05 22:41:06,05/07/2026 22:41
+DQ0110,TXN103604,3618,Customer_Avg_Amount_30D,Missing Value,5607.03,<BLANK>
+DQ0111,TXN103652,3666,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-07-07 16:00:37,07/07/2026 16:00
+DQ0112,TXN103673,3719,(entire row),Duplicate Record,Original at Excel row 3687,Exact copy at Excel row 3719
+DQ0113,TXN103757,3772,Device_ID,Missing Value,DEV563DF136,<BLANK>
+DQ0114,TXN103784,3799,Terminal_ID,Missing Value,TRM938007,<BLANK>
+DQ0115,TXN103797,3812,Transaction_Amount,Incorrect Data Type,834.30,Rs. 834.30
+DQ0116,TXN103800,3815,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0117,TXN103847,3862,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0118,TXN103862,3877,Transaction_Status,Status Conflicts With Response Code,Approved,Declined
+DQ0119,TXN103903,3918,Billing_Country,Inconsistent Country Name,India,Ind
+DQ0120,TXN103923,3938,Transaction_Amount,Invalid Amount (Non-numeric),8180.48,N/A
+DQ0121,TXN103931,3946,Merchant_ID,Missing Value,MER642102,<BLANK>
+DQ0122,TXN103965,3980,Transaction_DateTime,Missing Value,2026-07-13 12:46:49,<BLANK>
+DQ0123,TXN103970,3985,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,pos
+DQ0124,TXN103994,4009,Customer_Avg_Amount_30D,Missing Value,6121.95,<BLANK>
+DQ0125,TXN104015,4030,IP_Country,Missing Value,India,<BLANK>
+DQ0126,TXN104024,4039,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0127,TXN104037,4052,Terminal_ID,Missing Value,TRM365295,<BLANK>
+DQ0128,TXN104054,4069,Device_ID,Missing Value,DEV840AE297,<BLANK>
+DQ0129,TXN104091,4106,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0130,TXN104108,4123,Customer_Avg_Amount_30D,Missing Value,1964.16,<BLANK>
+DQ0131,TXN104133,4148,Transaction_Channel,Inconsistent Channel Spelling/Case,ATM,atm
+DQ0132,TXN104186,4201,Transaction_Status,Inconsistent Status Label,Approved,Success
+DQ0133,TXN104193,4208,Transaction_Status,Status Conflicts With Response Code,Declined,Approved
+DQ0134,TXN104204,4219,Transaction_Amount,Invalid Amount (Negative),1000.49,-1000.49
+DQ0135,TXN104208,4223,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",589.90,5000000.00
+DQ0136,TXN104257,4272,Transaction_DateTime,Date Format Inconsistency (time missing),2026-07-18 19:34:24,18-Jul-2026
+DQ0137,TXN104262,4277,Device_ID,Missing Value,DEVC7268491,<BLANK>
+DQ0138,TXN104280,4295,Transaction_Status,Inconsistent Status Label,Approved,APPROVED
+DQ0139,TXN104308,4323,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0140,TXN104311,4326,Terminal_ID,Missing Value,TRM431796,<BLANK>
+DQ0141,TXN104314,4329,IP_Country,Inconsistent Country Name,India,IN
+DQ0142,TXN104316,4331,Merchant_ID,Missing Value,MER093605,<BLANK>
+DQ0143,TXN104342,4357,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,Pos
+DQ0144,TXN104357,4372,Billing_Country,Inconsistent Country Name,India,India 
+DQ0145,TXN104374,4389,Transaction_Status,Status Conflicts With Response Code,Declined,Approved
+DQ0146,TXN104376,4391,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0147,TXN104359,4433,(entire row),Duplicate Record,Original at Excel row 4374,Exact copy at Excel row 4433
+DQ0148,TXN104419,4435,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0149,TXN104548,4564,Device_ID,Missing Value,DEV7BF38D43,<BLANK>
+DQ0150,TXN104588,4604,Merchant_Country,Inconsistent Country Name,India,Ind
+DQ0151,TXN104592,4608,Merchant_City,Missing Value,Mumbai,<BLANK>
+DQ0152,TXN104636,4652,Merchant_Country,Inconsistent Country Name,India,Ind
+DQ0153,TXN104614,4675,(entire row),Duplicate Record,Original at Excel row 4630,Exact copy at Excel row 4675
+DQ0154,TXN104692,4709,Transaction_Status,Inconsistent Status Label,Approved,Approve
+DQ0155,TXN104695,4712,Transaction_DateTime,Missing Value,2026-07-27 10:15:48,<BLANK>
+DQ0156,TXN104770,4787,IP_Country,Missing Value,India,<BLANK>
+DQ0157,TXN104867,4884,Transaction_Amount,Invalid Amount (Zero),4500.00,0.00
+DQ0158,TXN104869,4933,(entire row),Duplicate Record,Original at Excel row 4886,Exact copy at Excel row 4933
+DQ0159,TXN104986,5004,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0160,TXN105004,5022,Transaction_DateTime,Date Format Inconsistency (time missing),2026-08-01 09:30:18,01-Aug-2026
+DQ0161,TXN105052,5070,Terminal_ID,Missing Value,TRM348054,<BLANK>
+DQ0162,TXN105138,5156,Terminal_ID,Missing Value,TRM072810,<BLANK>
+DQ0163,TXN105140,5158,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0164,TXN105164,5189,(entire row),Duplicate Record,Original at Excel row 5182,Exact copy at Excel row 5189
+DQ0165,TXN105220,5239,Customer_Avg_Amount_30D,Missing Value,3061.37,<BLANK>
+DQ0166,TXN105265,5284,Transaction_Amount,Invalid Amount (Non-numeric),7018.62,N/A
+DQ0167,TXN105271,5290,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,pos
+DQ0168,TXN105259,5328,(entire row),Duplicate Record,Original at Excel row 5278,Exact copy at Excel row 5328
+DQ0169,TXN105355,5375,Transaction_DateTime,Impossible Date,2026-08-07 20:32:40,2026-13-05 20:32:40
+DQ0170,TXN105402,5422,Merchant_City,Missing Value,Delhi,<BLANK>
+DQ0171,TXN105423,5443,Billing_Country,Inconsistent Country Name,India,india
+DQ0172,TXN105435,5455,Transaction_Amount,Invalid Amount (Negative),853.60,-853.60
+DQ0173,TXN105476,5496,Billing_Country,Inconsistent Country Name,India,IN
+DQ0174,TXN105479,5499,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0175,TXN105492,5512,Device_ID,Missing Value,DEV9433C9EE,<BLANK>
+DQ0176,TXN105567,5587,Transaction_Amount,Invalid Amount (Zero),1282.26,0.00
+DQ0177,TXN105600,5620,Transaction_Amount,Invalid Amount (Zero),2085.75,0.00
+DQ0178,TXN105608,5628,Customer_Avg_Amount_30D,Missing Value,730.19,<BLANK>
+DQ0179,TXN105624,5644,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-08-12 15:52:19,12/08/2026 15:52
+DQ0180,TXN105631,5651,Transaction_Amount,Incorrect Data Type,4897.40,4897.40 INR
+DQ0181,TXN105641,5661,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0182,TXN105649,5669,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0183,TXN105652,5672,Device_ID,Missing Value,DEV1AAA802C,<BLANK>
+DQ0184,TXN105680,5700,Terminal_ID,Missing Value,TRM012155,<BLANK>
+DQ0185,TXN105685,5705,Terminal_ID,Missing Value,TRM904149,<BLANK>
+DQ0186,TXN105734,5754,Merchant_City,Missing Value,Mumbai,<BLANK>
+DQ0187,TXN105748,5768,Distance_From_Previous_Transaction_KM,Incorrect Data Type,11874.7,11874.7 km
+DQ0188,TXN105809,5829,Distance_From_Previous_Transaction_KM,Incorrect Data Type,0.5,0.5 km
+DQ0189,TXN105817,5837,Transaction_Amount,Incorrect Data Type,282.03,282.03 INR
+DQ0190,TXN105808,5876,(entire row),Duplicate Record,Original at Excel row 5828,Exact copy at Excel row 5876
+DQ0191,TXN105823,5881,(entire row),Duplicate Record,Original at Excel row 5843,Exact copy at Excel row 5881
+DQ0192,TXN105903,5925,Transaction_DateTime,Impossible Date,2026-08-17 11:09:49,2026-02-30 11:09:49
+DQ0193,TXN105907,5929,Transaction_Amount,Invalid Amount (Zero),38861.22,0.00
+DQ0194,TXN105910,5932,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0195,TXN105920,5942,IP_Country,Missing Value,India,<BLANK>
+DQ0196,TXN105963,5985,Terminal_ID,Missing Value,TRM469715,<BLANK>
+DQ0197,TXN106005,6027,Transaction_Amount,Invalid Amount (Zero),3808.12,0.00
+DQ0198,TXN106009,6031,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-08-19 14:57:19,19/08/2026 14:57
+DQ0199,TXN106078,6100,Merchant_City,Missing Value,Delhi,<BLANK>
+DQ0200,TXN106095,6117,Transaction_DateTime,Date Format Inconsistency (time missing),2026-08-21 15:15:13,21-Aug-2026
+DQ0201,TXN106154,6176,IP_Country,Missing Value,India,<BLANK>
+DQ0202,TXN106165,6187,Transaction_DateTime,Date Format Inconsistency (2-digit year),2026-08-22 20:13:04,22-08-26 20:13
+DQ0203,TXN106172,6194,Transaction_DateTime,Date Format Inconsistency (2-digit year),2026-08-22 22:47:52,22-08-26 22:47
+DQ0204,TXN106192,6214,Transaction_DateTime,Impossible Date,2026-08-23 11:54:10,2026-10-32 11:54:10
+DQ0205,TXN106230,6252,Merchant_ID,Missing Value,MER033136,<BLANK>
+DQ0206,TXN106261,6283,Device_ID,Missing Value,DEV3916BDB0,<BLANK>
+DQ0207,TXN106264,6286,Transaction_Channel,Inconsistent Channel Spelling/Case,ATM,Atm
+DQ0208,TXN106330,6352,IP_Country,Missing Value,India,<BLANK>
+DQ0209,TXN106365,6387,Transaction_DateTime,Date Format Inconsistency (2-digit year),2026-08-26 13:31:18,26-08-26 13:31
+DQ0210,TXN106389,6411,Transaction_Amount,Incorrect Data Type,735.50,735.50 INR
+DQ0211,TXN106408,6430,Transaction_Amount,Incorrect Data Type,12120.05,Rs. 12120.05
+DQ0212,TXN106499,6521,Customer_Avg_Amount_30D,Missing Value,4461.70,<BLANK>
+DQ0213,TXN106550,6572,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,Pos
+DQ0214,TXN106556,6578,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0215,TXN106681,6703,Terminal_ID,Missing Value,TRM635885,<BLANK>
+DQ0216,TXN106713,6735,Customer_Avg_Amount_30D,Missing Value,2263.87,<BLANK>
+DQ0217,TXN106746,6768,Merchant_Country,Inconsistent Country Name,India,india
+DQ0218,TXN106784,6806,Device_ID,Missing Value,DEV1C1D5094,<BLANK>
+DQ0219,TXN106803,6825,Merchant_Country,Inconsistent Country Name,India,India 
+DQ0220,TXN106823,6845,Card_Present_Flag,Incorrect Card_Present_Flag,No,Yes
+DQ0221,TXN106898,6920,Merchant_Country,Inconsistent Country Name,Singapore,SG
+DQ0222,TXN106940,6962,Distance_From_Previous_Transaction_KM,Incorrect Data Type,3.2,3.2 km
+DQ0223,TXN106943,6965,Customer_Avg_Amount_30D,Missing Value,2475.43,<BLANK>
+DQ0224,TXN106956,6978,IP_Country,Missing Value,India,<BLANK>
+DQ0225,TXN106967,6989,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-09-06 17:21:56,06/09/2026 17:21
+DQ0226,TXN106983,7018,(entire row),Duplicate Record,Original at Excel row 7005,Exact copy at Excel row 7018
+DQ0227,TXN106981,7046,(entire row),Duplicate Record,Original at Excel row 7003,Exact copy at Excel row 7046
+DQ0228,TXN107080,7104,Transaction_Amount,Invalid Amount (Negative),2746.01,-2746.01
+DQ0229,TXN107148,7172,Merchant_City,Missing Value,Mumbai,<BLANK>
+DQ0230,TXN107159,7183,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-09-10 08:22:36,10/09/2026 08:22
+DQ0231,TXN107169,7193,Transaction_DateTime,Missing Value,2026-09-10 10:32:38,<BLANK>
+DQ0232,TXN107198,7222,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0233,TXN107201,7225,Merchant_Country,Inconsistent Country Name,India,india
+DQ0234,TXN107214,7238,Billing_Country,Inconsistent Country Name,India,INDIA
+DQ0235,TXN107286,7310,Customer_Avg_Amount_30D,Missing Value,2432.94,<BLANK>
+DQ0236,TXN107353,7377,Device_ID,Missing Value,DEVBBF0DFBA,<BLANK>
+DQ0237,TXN107435,7459,Merchant_City,Missing Value,Gurugram,<BLANK>
+DQ0238,TXN107494,7518,Transaction_Status,Inconsistent Status Label,Approved,Success
+DQ0239,TXN107527,7564,(entire row),Duplicate Record,Original at Excel row 7551,Exact copy at Excel row 7564
+DQ0240,TXN107541,7566,Merchant_Country,Inconsistent Country Name,India,India 
+DQ0241,TXN107545,7570,IP_Country,Missing Value,India,<BLANK>
+DQ0242,TXN107626,7651,Merchant_ID,Missing Value,MER442731,<BLANK>
+DQ0243,TXN107586,7659,(entire row),Duplicate Record,Original at Excel row 7611,Exact copy at Excel row 7659
+DQ0244,TXN107665,7691,Transaction_DateTime,Date Format Inconsistency (time missing),2026-09-19 08:37:13,19-Sep-2026
+DQ0245,TXN107681,7707,Billing_Country,Inconsistent Country Name,India,India 
+DQ0246,TXN107768,7794,Billing_Country,Inconsistent Country Name,India,India 
+DQ0247,TXN107795,7821,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0248,TXN107796,7822,Merchant_City,Missing Value,Kolkata,<BLANK>
+DQ0249,TXN107914,7940,Merchant_City,Missing Value,Hyderabad,<BLANK>
+DQ0250,TXN108091,8117,Billing_Country,Inconsistent Country Name,India,Ind
+DQ0251,TXN108134,8160,Customer_Avg_Amount_30D,Missing Value,4877.56,<BLANK>
+DQ0252,TXN108146,8172,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,Pos
+DQ0253,TXN108269,8295,Customer_Avg_Amount_30D,Missing Value,2887.28,<BLANK>
+DQ0254,TXN108271,8343,(entire row),Duplicate Record,Original at Excel row 8297,Exact copy at Excel row 8343
+DQ0255,TXN108336,8363,Merchant_ID,Missing Value,MER868506,<BLANK>
+DQ0256,TXN108360,8387,Transaction_Amount,Invalid Amount (Negative),4000.00,-4000.00
+DQ0257,TXN108365,8392,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,online
+DQ0258,TXN108399,8426,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0259,TXN108426,8453,Transaction_DateTime,Missing Value,2026-10-03 13:20:33,<BLANK>
+DQ0260,TXN108436,8463,Transaction_Amount,Invalid Amount (Negative),1812.30,-1812.30
+DQ0261,TXN108444,8471,Device_ID,Missing Value,DEV3AF4CFC0,<BLANK>
+DQ0262,TXN108452,8479,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0263,TXN108476,8503,IP_Country,Missing Value,India,<BLANK>
+DQ0264,TXN108498,8525,Merchant_ID,Missing Value,MER379630,<BLANK>
+DQ0265,TXN108516,8543,Terminal_ID,Missing Value,TRM463262,<BLANK>
+DQ0266,TXN108552,8579,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0267,TXN108597,8624,IP_Country,Missing Value,India,<BLANK>
+DQ0268,TXN108610,8637,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0269,TXN108634,8661,IP_Country,Missing Value,India,<BLANK>
+DQ0270,TXN108669,8696,Device_ID,Missing Value,DEV79B9DBD3,<BLANK>
+DQ0271,TXN108698,8725,Transaction_Amount,Incorrect Data Type,10694.07,Rs. 10694.07
+DQ0272,TXN108700,8727,Transaction_DateTime,Date Format Inconsistency (time missing),2026-10-08 13:02:20,08-Oct-2026
+DQ0273,TXN108744,8771,Distance_From_Previous_Transaction_KM,Incorrect Data Type,2.9,2.9 km
+DQ0274,TXN108745,8772,Transaction_DateTime,Impossible Date,2026-10-09 06:34:39,2026-00-15 06:34:39
+DQ0275,TXN108757,8784,IP_Country,Missing Value,India,<BLANK>
+DQ0276,TXN108765,8792,Transaction_Amount,Incorrect Data Type,2849.09,2849.09 INR
+DQ0277,TXN108804,8831,IP_Country,Missing Value,India,<BLANK>
+DQ0278,TXN108829,8856,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-10-10 13:11:23,10/10/2026 13:11
+DQ0279,TXN108877,8904,Device_ID,Missing Value,DEV2E7F507B,<BLANK>
+DQ0280,TXN108889,8916,Merchant_City,Missing Value,Mumbai,<BLANK>
+DQ0281,TXN108900,8927,Transaction_Amount,"Invalid Amount (Outlier > 200,000)",4171.91,9999999.00
+DQ0282,TXN108918,8945,Distance_From_Previous_Transaction_KM,Incorrect Data Type,0.9,0.9 km
+DQ0283,TXN108938,8970,(entire row),Duplicate Record,Original at Excel row 8965,Exact copy at Excel row 8970
+DQ0284,TXN108951,8979,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,Pos
+DQ0285,TXN109005,9033,Distance_From_Previous_Transaction_KM,Incorrect Data Type,4.6,4.6 km
+DQ0286,TXN109040,9068,Distance_From_Previous_Transaction_KM,Incorrect Data Type,1.3,1.3 km
+DQ0287,TXN109039,9124,(entire row),Duplicate Record,Original at Excel row 9067,Exact copy at Excel row 9124
+DQ0288,TXN109097,9126,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0289,TXN109113,9142,Billing_Country,Inconsistent Country Name,India,IN
+DQ0290,TXN109132,9161,Billing_Country,Inconsistent Country Name,India,INDIA
+DQ0291,TXN109155,9184,Device_ID,Missing Value,DEVFA62EC99,<BLANK>
+DQ0292,TXN109166,9195,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-10-16 20:28:27,16/10/2026 20:28
+DQ0293,TXN109184,9213,Transaction_Amount,Invalid Amount (Non-numeric),799.17,N/A
+DQ0294,TXN109200,9229,Terminal_ID,Missing Value,TRM123537,<BLANK>
+DQ0295,TXN109205,9234,Transaction_Channel,Inconsistent Channel Spelling/Case,POS,POS 
+DQ0296,TXN109216,9245,Transaction_DateTime,Date Format Inconsistency (DD/MM/YYYY),2026-10-17 17:51:43,17/10/2026 17:51
+DQ0297,TXN109226,9255,Merchant_ID,Missing Value,MER942049,<BLANK>
+DQ0298,TXN109250,9279,Merchant_ID,Missing Value,MER857313,<BLANK>
+DQ0299,TXN109435,9464,Card_Present_Flag,Incorrect Card_Present_Flag,Yes,No
+DQ0300,TXN109455,9484,Device_ID,Missing Value,DEV895018FE,<BLANK>
+DQ0301,TXN109484,9513,Customer_Avg_Amount_30D,Missing Value,6537.21,<BLANK>
+DQ0302,TXN109486,9515,Transaction_Amount,Incorrect Data Type,369.65,369.65 INR
+DQ0303,TXN109445,9522,(entire row),Duplicate Record,Original at Excel row 9474,Exact copy at Excel row 9522
+DQ0304,TXN109528,9558,Transaction_Count_24H,Incorrect Data Type,1,one
+DQ0305,TXN109596,9626,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0306,TXN109663,9693,Transaction_Amount,Invalid Amount (Negative),4207.25,-4207.25
+DQ0307,TXN109667,9697,Merchant_Country,Inconsistent Country Name,India,India 
+DQ0308,TXN109689,9719,Transaction_Amount,Incorrect Data Type,31987.48,31987.48 INR
+DQ0309,TXN109693,9723,Transaction_Channel,Inconsistent Channel Spelling/Case,Online,Onlin
+DQ0310,TXN109713,9743,Transaction_Status,Inconsistent Status Label,Approved,Approve
+DQ0311,TXN109727,9757,Billing_Country,Inconsistent Country Name,India,IN
+DQ0312,TXN109715,9758,(entire row),Duplicate Record,Original at Excel row 9745,Exact copy at Excel row 9758
+DQ0313,TXN109800,9831,Transaction_Status,Inconsistent Status Label,Approved,approved
+DQ0314,TXN109852,9883,Transaction_DateTime,Date Format Inconsistency (2-digit year),2026-10-29 17:11:39,29-10-26 17:11
+DQ0315,TXN109854,9885,Merchant_ID,Missing Value,MER884985,<BLANK>
+DQ0316,TXN109905,9936,Device_ID,Missing Value,DEV4C0DDB9E,<BLANK>
+DQ0317,TXN109914,9945,Transaction_Amount,Invalid Amount (Non-numeric),386.26,N/A
+DQ0318,TXN109930,9961,Transaction_Count_24H,Incorrect Data Type,0,zero
+DQ0319,TXN109946,9977,Customer_Avg_Amount_30D,Missing Value,4418.00,<BLANK>
+DQ0320,TXN109956,9987,Distance_From_Previous_Transaction_KM,Incorrect Data Type,0.8,0.8 km

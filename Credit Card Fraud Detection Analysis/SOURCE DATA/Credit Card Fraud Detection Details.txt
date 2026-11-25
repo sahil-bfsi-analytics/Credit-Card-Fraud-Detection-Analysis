@@ -1,0 +1,41 @@
+10 lakh rows
+6 Months History Data
+31 Columns
+Daily Transactions
+
+
+
+No.	Column	Purpose
+1	Transaction_ID	Unique transaction
+2	Transaction_DateTime	Transaction date/time
+3	Card_Token	Masked card identifier
+4	Customer_ID	Customer identification
+5	Account_ID	Account identification
+6	Transaction_Amount	Transaction value
+7	Currency	Transaction currency
+8	Merchant_ID	Merchant identification
+9	Merchant_Category	Merchant type
+10	Merchant_Country	Merchant country
+11	Merchant_City	Merchant city
+
+
+12	Transaction_Channel	POS / Online / ATM
+13	Card_Present_Flag	Card physically present?
+14	Card_Entry_Mode	Chip / Contactless / Swipe
+15	Terminal_ID	Payment terminal
+16	Device_ID	Device identification
+17	IP_Country	Online transaction IP location
+18	Billing_Country	Customer billing country
+19	Domestic_International_Flag	Transaction location type
+20	Transaction_Status	Approved / Declined
+21	Authorization_Response_Code	Bank authorization response
+22	Customer_Avg_Amount_30D	30-day average spending
+23	Transaction_Count_1H	Transactions in 1 hour
+24	Transaction_Count_24H	Transactions in 24 hours
+25	Time_Since_Last_Transaction_Min	Time since previous transaction
+26	Distance_From_Previous_Transaction_KM	Location distance
+27	High_Risk_Merchant_Flag	Risky merchant indicator
+28	Alert_Flag	Suspicious transaction alert
+29	Confirmed_Fraud_Flag	Confirmed fraud indicator
+30	Chargeback_Status	Chargeback status
+31	Investigation_Outcome	Investigation result

@@ -1,0 +1,129 @@
+DEFINE
+    // ================= TRANSACTION ANALYSIS =================
+    MEASURE cc[Total Transactions] = COUNTROWS(cc)
+    MEASURE cc[Total Amount]       = SUM(cc[Transaction_Amount])
+    MEASURE cc[Avg Amount]         = AVERAGE(cc[Transaction_Amount])
+
+    MEASURE cc[Approved Transactions] = CALCULATE([Total Transactions], cc[Transaction_Status] = "Approved")
+    MEASURE cc[Declined Transactions] = CALCULATE([Total Transactions], cc[Transaction_Status] = "Declined")
+    MEASURE cc[Approval Rate %]       = DIVIDE([Approved Transactions], [Total Transactions])
+
+    // ================= FRAUD ANALYSIS =================
+    MEASURE cc[Fraud Transactions] = CALCULATE([Total Transactions], cc[Confirmed_Fraud_Flag] = "Yes")
+    MEASURE cc[Fraud Rate %]       = DIVIDE([Fraud Transactions], [Total Transactions])
+    MEASURE cc[Fraud Amount]       = CALCULATE([Total Amount], cc[Confirmed_Fraud_Flag] = "Yes")
+    MEASURE cc[Avg Fraud Amount]   = CALCULATE([Avg Amount], cc[Confirmed_Fraud_Flag] = "Yes")
+
+    // MODIFIED: Approved filter added (declined fraud is not a loss)
+    MEASURE cc[Fraud Loss] =
+        CALCULATE(
+            [Total Amount],
+            cc[Confirmed_Fraud_Flag] = "Yes",
+            cc[Transaction_Status] = "Approved",
+            cc[Chargeback_Status] IN {"Lost", "Not Applicable"}
+        )                                              // Expected: 562,561.03
+
+    // NEW: fraud attempts that the bank declined
+    MEASURE cc[Fraud Prevented (Declined)] =
+        CALCULATE(
+            [Total Amount],
+            cc[Confirmed_Fraud_Flag] = "Yes",
+            cc[Transaction_Status] = "Declined"
+        )                                              // Expected: 437,384.54
+
+    MEASURE cc[Fraud Recovered] =
+        CALCULATE([Total Amount], cc[Confirmed_Fraud_Flag] = "Yes", cc[Chargeback_Status] = "Won")
+                                                       // Expected: 178,267.49
+
+    MEASURE cc[Fraud Recovery In Progress] =
+        CALCULATE([Total Amount], cc[Confirmed_Fraud_Flag] = "Yes",
+                  cc[Chargeback_Status] IN {"Filed", "Pending"})
+                                                       // Expected: 68,332.15
+
+    // ================= FRAUD MONITORING =================
+    MEASURE cc[Total Alerts] = CALCULATE([Total Transactions], cc[Alert_Flag] = "Yes")
+
+    MEASURE cc[Confirmed Fraud Alerts] =
+        CALCULATE([Total Transactions], cc[Alert_Flag] = "Yes", cc[Confirmed_Fraud_Flag] = "Yes")
+
+    MEASURE cc[False Positive Count] =
+        CALCULATE([Total Transactions], cc[Alert_Flag] = "Yes", cc[Confirmed_Fraud_Flag] = "No")
+
+    // NEW: denominator for the false positive rate
+    MEASURE cc[Legitimate Transactions] =
+        CALCULATE([Total Transactions], cc[Confirmed_Fraud_Flag] = "No")
+
+    // MODIFIED: FP / all legitimate transactions
+    MEASURE cc[False Positive Rate %] =
+        DIVIDE([False Positive Count], [Legitimate Transactions])   // Expected: 3.80%
+
+    // NEW: old formula kept under a clearer name (FP / total alerts)
+    MEASURE cc[False Positive Share Of Alerts %] =
+        DIVIDE([False Positive Count], [Total Alerts])              // Expected: 83.82%
+
+    MEASURE cc[Alert To Fraud Conversion %]  = DIVIDE([Confirmed Fraud Alerts], [Total Alerts])
+    MEASURE cc[Fraud Detection Rate %]       = DIVIDE([Confirmed Fraud Alerts], [Fraud Transactions])
+
+    MEASURE cc[Missed Fraud] =
+        CALCULATE([Total Transactions], cc[Alert_Flag] = "No", cc[Confirmed_Fraud_Flag] = "Yes")
+
+    MEASURE cc[Missed Fraud Amount] =
+        CALCULATE([Total Amount], cc[Alert_Flag] = "No", cc[Confirmed_Fraud_Flag] = "Yes")
+
+    // ================= CHARGEBACK =================
+    MEASURE cc[Chargebacks Filed] =
+        CALCULATE([Total Transactions], cc[Chargeback_Status] <> "Not Applicable")
+
+    MEASURE cc[Chargeback Amount] =
+        CALCULATE([Total Amount], cc[Chargeback_Status] <> "Not Applicable")
+
+    MEASURE cc[Chargebacks Won]  = CALCULATE([Total Transactions], cc[Chargeback_Status] = "Won")
+    MEASURE cc[Chargebacks Lost] = CALCULATE([Total Transactions], cc[Chargeback_Status] = "Lost")
+
+    MEASURE cc[Chargeback Success Rate %] =
+        DIVIDE([Chargebacks Won], [Chargebacks Won] + [Chargebacks Lost])
+
+    // ================= CUSTOMER BEHAVIOUR =================
+    MEASURE cc[Customers With Multiple Alerts] =
+        COUNTROWS(FILTER(VALUES(cc[Customer_ID]), CALCULATE([Total Alerts]) >= 2))
+
+    MEASURE cc[Unusual Frequency Txns] =
+        CALCULATE([Total Transactions],
+            FILTER(cc, cc[Transaction_Count_1H] >= 3 || cc[Transaction_Count_24H] >= 5))
+
+    MEASURE cc[High Value Txns (50K+)] =
+        CALCULATE([Total Transactions], cc[Transaction_Amount] >= 50000)
+
+    MEASURE cc[IP Mismatch Txns] =
+        CALCULATE([Total Transactions], cc[IP_Check] = "IP Country Mismatch")
+
+    MEASURE cc[IP Mismatch Fraud Rate %] =
+        DIVIDE(
+            CALCULATE([Fraud Transactions], cc[IP_Check] = "IP Country Mismatch"),
+            [IP Mismatch Txns]
+        )
+
+    // ================= MERCHANT RISK =================
+    MEASURE cc[High Risk Merchant Txns] =
+        CALCULATE([Total Transactions], cc[High_Risk_Merchant_Flag] = "Yes")
+
+    MEASURE cc[High Risk Merchant Fraud Rate %] =
+        DIVIDE(
+            CALCULATE([Fraud Transactions], cc[High_Risk_Merchant_Flag] = "Yes"),
+            [High Risk Merchant Txns]
+        )
+
+// Quick check (these values should appear when run)
+EVALUATE
+ROW(
+    "Total Transactions", [Total Transactions],                    // 9,970
+    "Total Amount", [Total Amount],                                // 53,947,967.52
+    "Fraud Transactions", [Fraud Transactions],                    // 150
+    "Total Alerts", [Total Alerts],                                // 445
+    "Fraud Loss", [Fraud Loss],                                    // 562,561.03
+    "Fraud Prevented", [Fraud Prevented (Declined)],               // 437,384.54
+    "False Positive Rate %", [False Positive Rate %],              // 0.0380
+    "FP Share Of Alerts %", [False Positive Share Of Alerts %],    // 0.8382
+    "Fraud Detection Rate %", [Fraud Detection Rate %],            // 0.4800
+    "Chargeback Success Rate %", [Chargeback Success Rate %]       // 0.4085
+)
